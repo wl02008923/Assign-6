@@ -144,6 +144,7 @@
 
         var activitiesRef  = rootRef.child("activities")              // class : firebase.reference -> root.activity
         var favoritesRef   = rootRef.child("favorites")
+        var usersRef       = rootRef.child("users")
 
         var errorCallback  = function (msg){  alert(msg.message) }
 
@@ -220,6 +221,7 @@
 
                 toggle_like : function ( activity_id ){
                     // ASN REQ 4 : update favoritesRef at `currentUser.uid ` at `activity_id` to true
+                    favoritesRef.child(this.currentUser.uid).child(activity_id).set(true).catch(errorCallback)
 
                 },
 
