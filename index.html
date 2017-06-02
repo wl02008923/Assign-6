@@ -30,7 +30,7 @@
                   <article class="item" v-for="(activity ,activity_id) in data.activities">
                       <header>
                           <h1>{{activity.title}} </h1>
-                          <div v-if="data.currentUser" class="animation-swipe star" :class=" favorite : data.favorites[activity_id] ? 'favorite' : ''" @click="toggle_like(activity_id)">
+                          <div v-if="data.currentUser" class="animation-swipe star" :class="{ favorite : data.favorites[activity_id] }" @click="toggle_like(activity_id)">
                             <span class="glyphicon glyphicon-star"></span>
                           </div>
                       </header>
@@ -257,13 +257,17 @@
                     var msg = msgSnapshot.val()
                     console.log("msg value" , msg )
                     vm.$set( vm.data.activities , msgSnapshot.key , msg )
+                  })
+              })
+
+              favoritesRef.on("value",function (msgsSnapshot){
+                  
+                  msgsSnapshot.forEach(function(msgSnapshot){
                     
-                    // fetch user public data
-                    // if (msg.user && !vm.data.users[msg.user] ){
-                    //   usersRef.child(msg.user).once("value",function(userSnapshot){
-                    //     vm.$set( vm.data.users , userSnapshot.key , userSnapshot.val() )
-                    //   })
-                    // }
+                    // setup login status 
+                    var msg = msgSnapshot.val()
+                    console.log("msg value" , msg )
+                    vm.$set( vm.data.favorites , msgSnapshot.key , msg )
                   })
               })
 
