@@ -30,7 +30,7 @@
                   <article class="item" v-for="(activity ,activity_id) in data.activities">
                       <header>
                           <h1>{{activity.title}} </h1>
-                          <div v-if="data.currentUser" class="animation-swipe star" :class=" favorite[activity_id] ? 'favorite' : '' " @click="toggle_like(activity_id)">
+                          <div v-if="data.currentUser" class="animation-swipe star" :class=" favorite : data.favorites[activity_id] ? 'favorite' : ''" @click="toggle_like(activity_id)">
                             <span class="glyphicon glyphicon-star"></span>
                           </div>
                       </header>
@@ -221,7 +221,7 @@
 
                 toggle_like : function ( activity_id ){
                     // ASN REQ 4 : update favoritesRef at `currentUser.uid ` at `activity_id` to true
-                    favoritesRef.child(this.data.currentUser).child(activity_id).set(true).catch(errorCallback)
+                    favoritesRef.child(currentUser).child(activity_id).set(true).catch(errorCallback)
 
                 },
 
